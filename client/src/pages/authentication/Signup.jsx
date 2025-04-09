@@ -9,7 +9,8 @@ import toast from "react-hot-toast";
 const Signup = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { isAuthenticated } = useSelector((state) => state.userReducer);
+  const { isAuthenticated } = useSelector((state) => state.user);
+
   const [signupData, setSignupData] = useState({
     fullName: "",
     username: "",
@@ -31,11 +32,14 @@ const Signup = () => {
 
   const handleSignup = async () => {
     if (signupData.password !== signupData.confirmPassword) {
-      return toast.error("Password and confirm password do not match plz check");
+      return toast.error("Passwords do not match");
     }
+
     const response = await dispatch(registerUserThunk(signupData));
-    if (response?.payload?.success) {
+    if (response.meta.requestStatus === "fulfilled") {
       navigate("/");
+    } else {
+      console.error("Signup failed:", response.payload);
     }
   };
 
@@ -97,6 +101,7 @@ const Signup = () => {
               value="male"
               className="radio radio-primary"
               onChange={handleInputChange}
+              checked={signupData.gender === "male"}
             />
             male
           </label>
@@ -109,6 +114,7 @@ const Signup = () => {
               value="female"
               className="radio radio-primary"
               onChange={handleInputChange}
+              checked={signupData.gender === "female"}
             />
             female
           </label>

@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { toast } from "react-hot-toast";
-import { axiosInstance } from "../../../components/utitlities/axiosInstance";
+import axiosInstance from "../../../components/utitlities/axiosInstance";
 
 export const sendMessageThunk = createAsyncThunk(
   "message/send",

@@ -1,15 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
-import { RouterProvider } from 'react-router-dom';
+import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { store } from './store/store';
-import { createBrowserRouter } from "react-router-dom";
 import App from './App';
 import './index.css';
-import Home from "./pages/home/Home.jsx";
-import Login from "./pages/authentication/Login.jsx";
-import Signup from "./pages/authentication/Signup.jsx";
-import ProtectedRoute from "./components/ProtectedRoute.jsx";
+
+import Home from "./pages/home/Home";
+import Login from "./pages/authentication/Login";
+import Signup from "./pages/authentication/Signup";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 const router = createBrowserRouter([
   {
@@ -17,7 +17,7 @@ const router = createBrowserRouter([
     element: <App />,
     children: [
       {
-        path: "/",
+        index: true, // same as path: "/"
         element: (
           <ProtectedRoute>
             <Home />
@@ -25,11 +25,11 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "/login",
+        path: "login",
         element: <Login />,
       },
       {
-        path: "/signup",
+        path: "signup",
         element: <Signup />,
       },
     ],
