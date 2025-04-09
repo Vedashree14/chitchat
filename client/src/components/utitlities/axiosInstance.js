@@ -1,26 +1,23 @@
 import axios from "axios";
+import Cookies from 'js-cookie';
 
-const DB_URL = import.meta.env.VITE_DB_URL;
+const API_URL = import.meta.env.VITE_SERVER_URL || 'http://localhost:5000';
 
-export const axiosInstance = axios.create({
-  baseURL: DB_URL,
+const axiosInstance = axios.create({
+  baseURL: API_URL,
   withCredentials: true,
   headers: {
     "Content-Type": "application/json",
-    "Accept": "application/json"
-  }
+  },
 });
 
-// Add request interceptor to handle token
-axiosInstance.interceptors.request.use(
-  (config) => {
-    const token = document.cookie.split("; ").find(row => row.startsWith("token="));
-    if (token) {
-      config.headers.Authorization = `Bearer ${token.split("=")[1]}`;
-    }
-    return config;
-  },
-  (error) => {
-    return Promise.reject(error);
+// Add token to requests
+axiosInstance.interceptors.request.use((config) => {
+  const token = Cookies.get('token');
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
   }
-);
+  return config;
+});
+
+export default axiosInstance;

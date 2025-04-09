@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { loginUserThunk } from '../../store/slice/user/user.thunk';
+import { useDispatch } from 'react-redux';
+import { loginUserThunk } from '../store/slice/user/user.thunk';
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -11,7 +11,6 @@ const Login = () => {
   const [error, setError] = useState('');
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { loading } = useSelector((state) => state.user);
 
   const handleChange = (e) => {
     setFormData({
@@ -78,10 +77,9 @@ const Login = () => {
           <div>
             <button
               type="submit"
-              disabled={loading}
-              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50"
+              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
             >
-              {loading ? 'Signing in...' : 'Sign in'}
+              Sign in
             </button>
           </div>
         </form>
@@ -90,4 +88,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Login; 

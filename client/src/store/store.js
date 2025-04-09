@@ -5,14 +5,14 @@ import socketReducer from "./slice/socket/socket.slice";
 
 export const store = configureStore({
   reducer: {
-    userReducer,
+    user: userReducer,
     messageReducer,
     socketReducer,
   },
-  middleware: (getDefaultMiddlware) =>
-    getDefaultMiddlware({
-      serializableCheck: {
-        ignoredPaths: ["socketReducer.socket"],
-      },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: false,
     }),
 });
+
+export default store;
